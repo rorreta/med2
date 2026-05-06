@@ -3,230 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitor UV - Duoc UC Turismo</title>
+    <title>Monitor UV - Escuela de Turismo DuocUC</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #f0f0f0;
-            --text-color: #333;
-            --uv-low: #3EA72D;
-            --uv-mod: #FFF300;
-            --uv-high: #F18B00;
-            --uv-very-high: #E53210;
-            --uv-extreme: #B567A4;
+            --text-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.2);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
+            transition: background-color 0.8s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             color: var(--text-color);
+            overflow: hidden;
+        }
+
+        /* Simulación de Contenedor Móvil */
+        .mobile-container {
+            width: 100%;
+            max-width: 414px;
             height: 100vh;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 20px;
-            transition: background-color 0.8s ease;
-            text-align: center;
+            position: relative;
         }
 
         header {
-            margin-top: 20px;
+            text-align: center;
+            margin-bottom: 20px;
             width: 100%;
         }
 
         h1 {
             font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-weight: 300;
+            letter-spacing: 1px;
             margin-bottom: 15px;
-            font-weight: 700;
-            opacity: 0.8;
+            text-transform: uppercase;
         }
 
-        .location-card {
-            background: rgba(255, 255, 255, 0.2);
+        /* Rectángulo de Ubicación */
+        .location-box {
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
+            padding: 12px 20px;
             border-radius: 12px;
-            padding: 15px;
-            display: inline-block;
-            min-width: 80%;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            text-align: center;
         }
 
         .city-name {
+            font-weight: 700;
             font-size: 1.1rem;
-            font-weight: 600;
             display: block;
         }
 
-        .coordinates {
+        .coords {
             font-size: 0.8rem;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
-        .uv-container {
+        /* Círculo UV Principal */
+        .uv-display {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            width: 100%;
         }
 
         .uv-circle {
-            width: 220px;
-            height: 220px;
+            width: 240px;
+            height: 240px;
             border-radius: 50%;
-            background: white;
+            border: 8px solid rgba(255, 255, 255, 0.9);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border: 8px solid rgba(255,255,255,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
         }
 
         .uv-value {
             font-size: 5rem;
-            font-weight: 800;
+            font-weight: 700;
             line-height: 1;
         }
 
         .uv-label {
             font-size: 1rem;
-            font-weight: 400;
             text-transform: uppercase;
-            margin-top: -5px;
+            font-weight: 400;
         }
 
-        .footer-info {
-            margin-bottom: 30px;
-            background: rgba(0, 0, 0, 0.05);
-            padding: 15px;
-            border-radius: 20px;
-            width: 100%;
-        }
-
-        .max-info {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .school-tag {
-            font-size: 0.7rem;
-            margin-top: 10px;
-            opacity: 0.6;
+        .category-name {
+            font-size: 1.8rem;
             font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* Colores de texto según fondo */
-        .light-text { color: white; }
-        .dark-text { color: #333; }
+        /* Cuadro de Información y EPP */
+        .info-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
+        .max-uv {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .epp-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .epp-text {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            font-weight: 300;
+        }
+
+        footer {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            position: absolute;
+            bottom: 20px;
+        }
+
+        /* Estados de carga */
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Monitor Índice UV</h1>
-        <div class="location-card" id="location-box">
-            <span class="city-name" id="city">Buscando ubicación...</span>
-            <span class="coordinates" id="coords">-- , --</span>
-        </div>
-    </header>
+    <div class="mobile-container" id="app">
+        <header>
+            <h1>Escuela de Turismo DuocUC</h1>
+            <div class="location-box">
+                <span class="city-name" id="city">Buscando ubicación...</span>
+                <span class="coords" id="coords">-- , --</span>
+            </div>
+        </header>
 
-    <div class="uv-container">
-        <div class="uv-circle" id="uv-circle">
-            <span class="uv-value" id="uv-index">--</span>
-            <span class="uv-label">Índice UV</span>
-        </div>
-    </div>
+        <main class="uv-display">
+            <div class="uv-circle">
+                <span class="uv-label">Índice UV</span>
+                <span class="uv-value" id="uv-now">--</span>
+            </div>
+            <div class="category-name" id="uv-cat">---</div>
 
-    <div class="footer-info">
-        <div class="max-info" id="max-uv-info">
-            Máximo hoy: -- a las --:--
-        </div>
-        <div class="school-tag">ESCUELA DE TURISMO • DUOC UC</div>
+            <div class="info-card">
+                <div class="max-uv">
+                    Máximo hoy: <strong id="uv-max">--</strong> a las <strong id="uv-max-time">--:--</strong>
+                </div>
+                <div class="epp-container">
+                    <div class="epp-title">Recomendaciones EPP</div>
+                    <p class="epp-text" id="epp-advice">Cargando datos meteorológicos...</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>Monitor de Seguridad Ambiental en Tiempo Real</footer>
     </div>
 
     <script>
-        const uvCircle = document.getElementById('uv-circle');
-        const uvValue = document.getElementById('uv-index');
-        const cityEl = document.getElementById('city');
-        const coordsEl = document.getElementById('coords');
-        const maxInfoEl = document.getElementById('max-uv-info');
+        const uvConfig = {
+            low: { color: '#3ea72d', label: 'Bajo', epp: 'No requiere protección especial. Puede permanecer al exterior de forma segura.' },
+            moderate: { color: '#fff300', label: 'Moderado', epp: 'Use gafas de sol y protector solar. Busque sombra en las horas centrales del día.' },
+            high: { color: '#f18b00', label: 'Alto', epp: 'Protección necesaria. Use sombrero, gafas, protector solar FPS 30+ y camisa de manga larga.' },
+            veryHigh: { color: '#e53210', label: 'Muy Alto', epp: 'Reduzca el tiempo al sol entre 11am y 4pm. Use ropa protectora, sombrero de ala ancha y protector FPS 50+.' },
+            extreme: { color: '#b577bd', label: 'Extremo', epp: 'Riesgo extremo. Evite salir en horas centrales. Es imprescindible el uso de EPP completo y sombra constante.' }
+        };
 
-        async function getUVData(lat, lon) {
-            try {
-                // 1. Obtener datos meteorológicos de Open-Meteo
-                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=uv_index&hourly=uv_index&daily=uv_index_max&timezone=auto`);
-                const data = await response.json();
-
-                // 2. Obtener nombre de ciudad con Nominatim
-                const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`);
-                const geoData = await geoRes.json();
-                const city = geoData.address.city || geoData.address.town || geoData.address.village || "Ubicación desconocida";
-
-                updateUI(data, city, lat, lon);
-            } catch (error) {
-                cityEl.innerText = "Error al cargar datos";
-                console.error(error);
+        async function init() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+                alert("La geolocalización no es compatible con este navegador.");
             }
         }
 
-        function updateUI(data, city, lat, lon) {
+        function getUVStyles(index) {
+            if (index <= 2) return uvConfig.low;
+            if (index <= 5) return uvConfig.moderate;
+            if (index <= 7) return uvConfig.high;
+            if (index <= 10) return uvConfig.veryHigh;
+            return uvConfig.extreme;
+        }
+
+        async function success(position) {
+            const lat = position.coords.latitude.toFixed(4);
+            const lon = position.coords.longitude.toFixed(4);
+            
+            document.getElementById('coords').textContent = `${lat}, ${lon}`;
+            
+            // 1. Obtener nombre de ciudad (Reverse Geocoding gratuito)
+            try {
+                const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+                const geoData = await geoRes.json();
+                const city = geoData.address.city || geoData.address.town || geoData.address.village || "Ubicación detectada";
+                document.getElementById('city').textContent = city;
+            } catch (e) {
+                document.getElementById('city').textContent = "Ubicación detectada";
+            }
+
+            // 2. Obtener datos de Open-Meteo
+            try {
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=uv_index&daily=uv_index_max&hourly=uv_index&timezone=auto`);
+                const data = await weatherRes.json();
+                
+                updateUI(data);
+            } catch (e) {
+                console.error("Error al obtener datos meteorológicos", e);
+            }
+        }
+
+        function updateUI(data) {
             const currentUV = data.current.uv_index;
             const maxUV = data.daily.uv_index_max[0];
             
-            // Encontrar la hora del máximo
+            // Buscar la hora del máximo UV en el array hourly
             const hourlyUV = data.hourly.uv_index;
-            const maxHourIndex = hourlyUV.indexOf(Math.max(...hourlyUV.slice(0, 24)));
-            const maxTime = new Date(data.hourly.time[maxHourIndex]).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const maxIndex = hourlyUV.indexOf(Math.max(...hourlyUV.slice(0, 24)));
+            const maxTimeStr = data.hourly.time[maxIndex].split('T')[1];
 
-            // Actualizar textos
-            uvValue.innerText = currentUV.toFixed(1);
-            cityEl.innerText = city;
-            coordsEl.innerText = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
-            maxInfoEl.innerText = `Máximo hoy: ${maxUV.toFixed(1)} proyectado a las ${maxTime}`;
+            const styles = getUVStyles(currentUV);
 
-            // Determinar color y escala
-            let color = "";
-            let textClass = "dark-text";
+            // Actualizar interfaz
+            document.body.style.backgroundColor = styles.color;
+            document.getElementById('uv-now').textContent = currentUV.toFixed(1);
+            document.getElementById('uv-cat').textContent = styles.label;
+            document.getElementById('epp-advice').textContent = styles.epp;
+            document.getElementById('uv-max').textContent = maxUV.toFixed(1);
+            document.getElementById('uv-max-time').textContent = maxTimeStr;
 
-            if (currentUV <= 2) { color = "#3EA72D"; textClass = "light-text"; }
-            else if (currentUV <= 5) { color = "#FFF300"; textClass = "dark-text"; }
-            else if (currentUV <= 7) { color = "#F18B00"; textClass = "light-text"; }
-            else if (currentUV <= 10) { color = "#E53210"; textClass = "light-text"; }
-            else { color = "#B567A4"; textClass = "light-text"; }
-
-            // Aplicar estilos
-            document.body.style.backgroundColor = color;
-            uvCircle.style.color = color; // El número dentro del círculo lleva el color de la escala
-            
-            // Ajustar contraste de textos generales
-            document.body.className = textClass;
+            // Ajustar color de texto si el fondo es amarillo (por visibilidad)
+            if (styles.label === 'Moderado') {
+                document.body.style.color = '#333';
+                document.querySelectorAll('.location-box, .info-card, .uv-circle').forEach(el => {
+                    el.style.borderColor = 'rgba(0,0,0,0.1)';
+                });
+            } else {
+                document.body.style.color = '#fff';
+            }
         }
 
-        // Iniciar geolocalización
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    getUVData(pos.coords.latitude, pos.coords.longitude);
-                },
-                () => {
-                    cityEl.innerText = "Acceso a ubicación denegado";
-                }
-            );
-        } else {
-            cityEl.innerText = "Geolocalización no soportada";
+        function error() {
+            document.getElementById('city').textContent = "Error de ubicación";
+            alert("Por favor, permite el acceso a la ubicación para ver el índice UV de tu zona.");
         }
+
+        init();
     </script>
 </body>
 </html>
